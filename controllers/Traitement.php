@@ -131,7 +131,9 @@ class Traitement extends CI_Controller {
     {
 		$idregime=$this->input->get('idregime');
 		$idplat=$this->input->get('idplat');
-		$data['idplat']=$this->db->query('select * from plat_regime WHERE idplat='.$idplat. ' and idregime='.$idregime)->result_array();
+		$data['idplat']=$this->db->query('select * from (SELECT re.idregime,re.nomregime,re.typeregime,re.dureejour,re.gain,re.prix,rea.idregimealiment,rea.jour,rea.idplat,pl.nomplat,pl.categorie FROM regime as re
+		JOIN regime_aliment as rea ON re.idregime=rea.idregime
+		JOIN plat as pl ON rea.idplat = pl.idplat) as plat_regime WHERE idplat='.$idplat. ' and idregime='.$idregime)->result_array();
 		$this->load->view('header');
 		$this->load->view("modifier", $data);
 		$this->load->view('footer');
@@ -144,7 +146,9 @@ class Traitement extends CI_Controller {
 		$prix=$this->input->get('prix');
 		$calori=$this->input->get('calori');
 		$date=$this->input->get('date');
-		$this->db->query("UPDATE plat_regime SET nomplat = '".$nom."', prix = '".$prix."', gain = '".$calori."', dureejour = '".$date."'"." WHERE nomplat="."'".$nom."'");
+		$this->db->query("UPDATE (SELECT re.idregime,re.nomregime,re.typeregime,re.dureejour,re.gain,re.prix,rea.idregimealiment,rea.jour,rea.idplat,pl.nomplat,pl.categorie FROM regime as re
+		JOIN regime_aliment as rea ON re.idregime=rea.idregime
+		JOIN plat as pl ON rea.idplat = pl.idplat) as plat_regime SET nomplat = '".$nom."', prix = '".$prix."', gain = '".$calori."', dureejour = '".$date."'"." WHERE nomplat="."'".$nom."'");
 		
 		$this->load->model('Selection_model');
 		$id=$this->input->get('idregime');
@@ -153,5 +157,27 @@ class Traitement extends CI_Controller {
 		$this->load->view('header');
 		$this->load->view("proposition", $data);
 		$this->load->view('footer');
+    }
+
+	public function supprimersport()
+    {
+		$idsport=$this->input->get('idsport');
+		$this->db->query('delete from sport WHERE idsport='.$idsport);
+		redirect("Lien/sport/sport");
+    }
+	public function modifiersport()
+    {
+		$idsport=$this->input->get('idsport');
+		$data['idsport']=$this->db->query('select * from sport WHERE idsport='.$idsport)->result_array();
+		$this->load->view('header');
+		$this->load->view("sportmodif", $data);
+		$this->load->view('footer');
+    }
+	public function updatesport()
+    {
+		$idsport=$this->input->get('idsport');
+		$nomsport=$this->input->get('nomsport');
+		$this->db->query("UPDATE sport SET idsport = '".$idsport."', nomsport = '".$nomsport."'"." WHERE idsport=".$idsport);
+		redirect('Lien/sport/sport');
     }
 }

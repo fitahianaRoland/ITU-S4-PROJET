@@ -8,6 +8,7 @@
                     <th>image</th>
                     <th>NOM</th>
                     <th>PRIX</th>
+                    <th>Duree</th>
                     <th>Modif</th>
                     <th>Delete</th>
                 </tr>
@@ -16,9 +17,10 @@
                 <tbody>
                 <?php foreach($plats as $values){?>
                 <tr>
-                    <td><div class="idregime"><img src="" alt="x"></div></td>
+                    <td><div class="idregime"><img src="<?php echo base_url("assets/img/minceur/dejeuner/d4.jpeg")?>" alt="x"></div></td>
                     <td><?php echo $values['nomplat']; ?></td>
                     <td><?php echo $values['prix']; ?></td>
+                    <td><?php echo $values['jour']; ?>/<?php echo $values['dureejour']; ?></td>
                     <td><a href="<?php echo base_url('Traitement/modifierRegime?idplat='.$values['idplat'].'& idregime='.'&idregime='.$values['idregime'])?>">modifier</a></td>
                     <td><a  href="<?php echo base_url('Traitement/supprimerRegime?idplat='.$values['idplat'].'&idregime='.$values['idregime'])?>"><i class="fa fa-trash"></td>
                 </tr>

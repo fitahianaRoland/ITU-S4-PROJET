@@ -15,10 +15,10 @@
                 <tbody>
                 <?php foreach($sports as $values){?>
                 <tr>
-                    <td><?php echo $values['idsport']; ?></td>
-                    <td><?php echo $values['nomsport']; ?></td>
-                    <td><a href="<?php echo base_url('Traitement/modifierRegime?idsport='.$values['idsport'])?>">modifier</a></td>
-                    <td><a  href="<?php echo base_url('Traitement/supprimerRegime?idsport='.$values['idsport'])?>"><i class="fa fa-trash"></td>
+                    <td><?php echo $values->idsport; ?></td>
+                    <td><?php echo $values->nomsport; ?></td>
+                    <td><a href="<?php echo base_url('Traitement/modifiersport?idsport='.$values->idsport)?>">modifier</a></td>
+                    <td><a  href="<?php echo base_url('Traitement/supprimersport?idsport='.$values->idsport)?>"><i class="fa fa-trash"></td>
                 </tr>
                 <?php } ?>
                 </tbody>
